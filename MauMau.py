@@ -137,6 +137,7 @@ def shuffle_deck():
 
     return deck
 
+#shuffle deck 
 
 deck = shuffle_deck()
 deck = shuffle_deck()
@@ -184,7 +185,8 @@ class Slots:
         if self.card == None:
             self.card = card
 
-
+#the code below is terrible I know by now :D 
+            
 # Player1
 P1_slot_1 = Slots(395, 660)
 P1_slot_2 = Slots(481, 660)
@@ -285,6 +287,7 @@ class Button:
             pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.height))
             win.blit(text, coords)
 
+ #all clickable buttons 
 
 Draw_Button = Button(60, 367, 66, 100, brown)
 
@@ -305,6 +308,7 @@ pik_button= Button(1040, 367+ 4*86, 66, 100, type= "pik")
 
 
 #type_button_karo= Button()
+
 
 # assign images to slots
 
@@ -358,6 +362,9 @@ while menu_screen:
 
 """Main game loop, this is where we play"""
 
+#this is where the game actually starts 
+#conditions at beginning of game 
+
 run = True
 
 player1_turn = True
@@ -370,18 +377,16 @@ make_wish_mode = False
 #function to reset all booleans?
 
 # cards already drawn
+
 player2_cards_drawn = 0
 player1_cards_drawn = 0
-
-
-#
 mandatory_mode = None
-
 
 while run:
 
     if player1_turn:
-
+        
+        #if Bube has been played
         if make_wish_mode:
 
             assign_images_to_slots(Player1_hand, Player1_slots)
@@ -408,6 +413,7 @@ while run:
                         player1_turn=False
                         player2_turn=True
                         break
+                        
                     if pik_button.click(pos):
                         mandatory_mode= "pik"
                         player1_cards_drawn=0
@@ -415,6 +421,7 @@ while run:
                         player1_turn=False
                         player2_turn=True
                         break
+                        
                     if herz_button.click(pos):
                         mandatory_mode= "herz"
                         player1_cards_drawn=0
@@ -430,7 +437,8 @@ while run:
                         player1_turn=False
                         player2_turn=True
                         break
-
+        
+        #If you have to comply wish the wished card
         if mandatory_mode != None:
 
             assign_images_to_slots(Player1_hand, Player1_slots)
@@ -512,7 +520,7 @@ while run:
                         player1_turn = False
 
 
-
+        #normal game condition (no Bube)
         if not make_wish_mode and mandatory_mode == None:
 
             assign_images_to_slots(Player1_hand, Player1_slots)
@@ -531,7 +539,7 @@ while run:
                     for slot in Player1_slots[:len(Player1_hand)]:
 
                         if slot.click(pos):
-
+                            #if seven is played
                             if slot.card.type == gameslot.card.type or slot.card.number == gameslot.card.number:
                                 if slot.card.number == 7:
                                     seven_count += 1
@@ -551,13 +559,13 @@ while run:
                                         player1_turn = False
                                         player2_turn = True
                                         break
-
+                                #bube
                                 elif slot.card.number == 11:
                                     Player1_hand.remove(slot.card)
                                     gameslot.card = slot.card
                                     make_wish_mode= True
                                     break
-
+                                #8 (skip other player)
                                 elif slot.card.number == 8 or slot.card.number == 14:
                                     Player1_hand.remove(slot.card)
                                     gameslot.card = slot.card
@@ -571,19 +579,20 @@ while run:
                                     player1_turn = False
                                     player2_turn = True
                                     break
-
+                    #draw card
                     if Draw_Button.click(pos) and player1_cards_drawn < 1:
                         player1_cards_drawn += 1
                         Player1_hand.append(deck[0])
                         deck.remove(deck[0])
-
+                    #fold
                     if Cannot_Play_Button.click(pos):
                         player1_cards_drawn = 0
                         player2_turn = True
                         player1_turn = False
 
         #pygame.display.update()
-
+    
+    #same here
     if player2_turn:
 
         if make_wish_mode:
@@ -788,7 +797,8 @@ while run:
                         player2_turn = False
 
         #pygame.display.update()
-
+    
+    #if someone wins (hand == 0 cards)
     if len(Player2_hand) == 0 or len(Player1_hand) == 0:
         player2_turn = False
         player1_turn = False
@@ -823,7 +833,7 @@ while run:
 
 pygame.quit()
 
-
+#Thanks for looking through it :) 
 
 
 
