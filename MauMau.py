@@ -1,5 +1,8 @@
 "First official 2021 project"
 
+#alert! As this has been my first project the code is repetitive and poorly commented. 
+#Most of the control flow could have been summarized by functions. 
+
 import random
 import pygame
 import time
